@@ -1,0 +1,20 @@
+
+$ javac -classpath $HADOOP_CLASSPATH WordCount.java
+
+$ jar -cvf wc.jar *.class
+
+
+$ hdfs dfs -mkdir /user
+$ hdfs dfs -mkdir /user/wc
+$ hdfs dfs -mkdir /user/wc/input
+
+
+$ hadoop fs -copyFromLocal wcinput1.txt /user/wc/input
+$ hadoop fs -copyFromLocal wcinput2.txt /user/wc/input
+
+
+$ hadoop jar wc.jar WordCount /user/wc/input /user/wc/output
+
+$ hadoop fs -copyToLocal /user/wc/output/*
+
+$ gedit part-r-00000
